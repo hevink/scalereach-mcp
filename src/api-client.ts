@@ -14,6 +14,21 @@ if (!API_KEY) {
   );
 }
 
+// Cache the workspace ID so we only fetch it once
+let cachedWorkspaceId: string | null = null;
+
+export async function getWorkspaceId(): Promise<string> {
+  if (cachedWorkspaceId) return cachedWorkspaceId;
+
+  const { ok, data } = await apiCall<any[]>("GET", "/api/workspaces");
+  if (ok && Array.isArray(data) && data.length > 0) {
+    cachedWorkspaceId = data[0].id;
+    return cachedWorkspaceId!;
+  }
+
+  throw new Error("Could not resolve workspace from API key. Check your SCALEREACH_API_KEY.");
+}
+
 export async function apiCall<T = any>(
   method: "GET" | "POST" | "PATCH" | "DELETE",
   path: string,

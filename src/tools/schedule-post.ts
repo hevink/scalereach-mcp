@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { apiCall } from "../api-client.js";
+import { apiCall, getWorkspaceId } from "../api-client.js";
 
 export function schedulePostTool(server: McpServer) {
   server.tool(
@@ -15,7 +15,7 @@ export function schedulePostTool(server: McpServer) {
 
 Supports Instagram Reels, TikTok, YouTube Shorts, and more.`,
     {
-      workspaceId: z.string().describe("Workspace ID"),
+      workspaceId: z.string().optional().describe("Workspace ID — auto-resolved from API key if not provided"),
       clipId: z.string().describe("The clip ID to post"),
       socialAccountId: z
         .string()
@@ -39,7 +39,8 @@ Supports Instagram Reels, TikTok, YouTube Shorts, and more.`,
         ),
     },
     async (params) => {
-      const { ok, status, data } = await apiCall("POST", "/api/social/posts", params);
+      const wsId = params.workspaceId || await getWorkspaceId();
+      const { ok, status, data } = await apiCall("POST", "/api/social/posts", { ...params, workspaceId: wsId });
 
       if (!ok) {
         return {

@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { apiCall } from "../api-client.js";
+import { apiCall, getWorkspaceId } from "../api-client.js";
 
 /**
  * Submit a YouTube video with full configuration in one shot.
@@ -24,7 +24,8 @@ Do NOT ask about genre, aspect ratio, clip duration, timeframe, language, captio
         .describe("YouTube video URL (e.g., https://youtube.com/watch?v=...)"),
       workspaceId: z
         .string()
-        .describe("Workspace ID to process the video under"),
+        .optional()
+        .describe("Workspace ID — auto-resolved from API key if not provided"),
       projectId: z
         .string()
         .optional()
@@ -137,7 +138,8 @@ Do NOT ask about genre, aspect ratio, clip duration, timeframe, language, captio
         .describe("Add an AI-generated hook title overlay in the first 3 seconds of each clip."),
     },
     async (params) => {
-      const { youtubeUrl, workspaceId, projectId, ...config } = params;
+      const { youtubeUrl, projectId, ...config } = params;
+      const workspaceId = params.workspaceId || await getWorkspaceId();
 
       const { ok, status, data } = await apiCall("POST", "/api/videos/youtube", {
         youtubeUrl,
