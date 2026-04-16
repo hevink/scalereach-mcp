@@ -14,19 +14,35 @@ if (!API_KEY) {
   );
 }
 
-// Cache the workspace ID so we only fetch it once
+// Cache the workspace ID and slug so we only fetch once
 let cachedWorkspaceId: string | null = null;
+let cachedWorkspaceSlug: string | null = null;
 
 export async function getWorkspaceId(): Promise<string> {
   if (cachedWorkspaceId) return cachedWorkspaceId;
+  await resolveWorkspace();
+  return cachedWorkspaceId!;
+}
 
+export async function getWorkspaceSlug(): Promise<string> {
+  if (cachedWorkspaceSlug) return cachedWorkspaceSlug;
+  await resolveWorkspace();
+  return cachedWorkspaceSlug!;
+}
+
+async function resolveWorkspace(): Promise<void> {
   const { ok, data } = await apiCall<any[]>("GET", "/api/workspaces");
   if (ok && Array.isArray(data) && data.length > 0) {
     cachedWorkspaceId = data[0].id;
-    return cachedWorkspaceId!;
+    cachedWorkspaceSlug = data[0].slug || data[0].id;
+    return;
   }
-
   throw new Error("Could not resolve workspace from API key. Check your SCALEREACH_API_KEY.");
+}
+
+export function buildDashboardUrl(path: string): string {
+  const slug = cachedWorkspaceSlug || "app";
+  return `https://app.scalereach.ai/${slug}${path}`;
 }
 
 export async function apiCall<T = any>(
