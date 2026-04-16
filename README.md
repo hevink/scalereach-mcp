@@ -26,9 +26,19 @@ Claude: → calls ScaleReach API → video processed → clips ready
 
 Go to [ScaleReach Dashboard](https://app.scalereach.ai) → Settings → API Keys → Create Key
 
-### 2. Add to Claude Desktop
+### 2. One-command install
 
-Edit your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+```bash
+npx scalereach-mcp setup sr_live_your_key_here
+```
+
+That's it. This auto-detects Claude Desktop, Cursor, Windsurf, and Kiro — and configures all of them. Restart your AI app and start chatting.
+
+To remove: `npx scalereach-mcp uninstall`
+
+### Manual setup (if you prefer)
+
+Add to your AI app's MCP config:
 
 ```json
 {
@@ -44,59 +54,12 @@ Edit your Claude Desktop config (`~/Library/Application Support/Claude/claude_de
 }
 ```
 
-### 3. Add to Cursor
-
-Add to `.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "scalereach": {
-      "command": "npx",
-      "args": ["-y", "scalereach-mcp"],
-      "env": {
-        "SCALEREACH_API_KEY": "sr_live_your_key_here"
-      }
-    }
-  }
-}
-```
-
-### 4. Add to Kiro
-
-Add to `.kiro/settings/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "scalereach": {
-      "command": "npx",
-      "args": ["-y", "scalereach-mcp"],
-      "env": {
-        "SCALEREACH_API_KEY": "sr_live_your_key_here"
-      }
-    }
-  }
-}
-```
-
-### 5. Add to Windsurf
-
-Add to `~/.codeium/windsurf/mcp_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "scalereach": {
-      "command": "npx",
-      "args": ["-y", "scalereach-mcp"],
-      "env": {
-        "SCALEREACH_API_KEY": "sr_live_your_key_here"
-      }
-    }
-  }
-}
-```
+Config file locations:
+- Claude Desktop (Mac): `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Claude Desktop (Windows): `%APPDATA%\Claude\claude_desktop_config.json`
+- Cursor: `.cursor/mcp.json`
+- Kiro: `.kiro/settings/mcp.json`
+- Windsurf: `~/.codeium/windsurf/mcp_config.json`
 
 ## Available Tools
 
