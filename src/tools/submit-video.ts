@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { apiCall, getWorkspaceId, buildDashboardUrl, getWorkspaceSlug } from "../api-client.js";
+import { apiCall, getWorkspaceId, buildDashboardUrl, getWorkspaceSlug, getDashboardUrl } from "../api-client.js";
 
 /**
  * Submit a YouTube video with full configuration in one shot.
@@ -168,7 +168,7 @@ Do NOT ask about genre, aspect ratio, clip duration, timeframe, language, captio
           {
             type: "text" as const,
             text: JSON.stringify(data, null, 2) +
-              `\n\nView in dashboard: ${buildDashboardUrl(`/videos/${(data as any)?.video?.id}/clips`)}`,
+              `\n\nView in dashboard: ${await getDashboardUrl(`/videos/${(data as any)?.video?.id}/clips`)}`,
           },
         ],
       };

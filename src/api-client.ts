@@ -45,6 +45,11 @@ export function buildDashboardUrl(path: string): string {
   return `https://app.scalereach.ai/${slug}${path}`;
 }
 
+export async function getDashboardUrl(path: string): Promise<string> {
+  await getWorkspaceSlug(); // ensure resolved
+  return `https://app.scalereach.ai/${cachedWorkspaceSlug || "app"}${path}`;
+}
+
 export async function apiCall<T = any>(
   method: "GET" | "POST" | "PATCH" | "DELETE",
   path: string,

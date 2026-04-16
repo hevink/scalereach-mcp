@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { apiCall, buildDashboardUrl } from "../api-client.js";
+import { apiCall, getDashboardUrl } from "../api-client.js";
 
 export function getVideoClipsTool(server: McpServer) {
   server.tool(
@@ -11,7 +11,7 @@ export function getVideoClipsTool(server: McpServer) {
       const { ok, data } = await apiCall("GET", `/api/videos/${videoId}/clips`);
       return {
         content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) +
-          `\n\nView clips in dashboard: ${buildDashboardUrl(`/videos/${videoId}/clips`)}` }],
+          `\n\nView clips in dashboard: ${await getDashboardUrl(`/videos/${videoId}/clips`)}` }],
       };
     }
   );
