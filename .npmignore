@@ -1,0 +1,8 @@
+src/
+tsconfig.json
+.env
+.env.local
+.env.example
+.gitignore
+bun.lock
+node_modules/

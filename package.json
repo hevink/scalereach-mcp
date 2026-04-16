@@ -1,0 +1,53 @@
+{
+  "name": "scalereach-mcp",
+  "version": "1.1.1",
+  "description": "MCP server for ScaleReach AI video clipping — lets Claude clip YouTube videos via natural conversation",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "scalereach-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "bun run build",
+    "start": "node dist/index.js",
+    "dev": "bun --watch run src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "ai",
+    "video-clipping",
+    "youtube",
+    "scalereach",
+    "viral-clips",
+    "short-form",
+    "tiktok",
+    "reels",
+    "shorts"
+  ],
+  "author": "ScaleReach",
+  "license": "MIT",
+  "homepage": "https://scalereach.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scalereach/scalereach-mcp"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.3"
+  }
+}
