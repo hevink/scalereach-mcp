@@ -56,10 +56,10 @@ Do NOT ask about genre, aspect ratio, clip duration, timeframe, language, captio
         .describe("Minimum clip duration in seconds (min 5). Default 15s."),
       clipDurationMax: z
         .number()
-        .max(300)
+        .max(120)
         .optional()
         .default(90)
-        .describe("Maximum clip duration in seconds (max 300). Default 90s."),
+        .describe("Maximum clip duration in seconds (max 120). Default 90s."),
       captionTemplateId: z
         .enum([
           "classic", "rainbow", "basker", "billy", "simple", "hormozi",
