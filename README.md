@@ -29,8 +29,9 @@ Go to [ScaleReach Dashboard](https://app.scalereach.ai) → Settings → API Key
 ### 2a. Claude.ai (no install needed)
 
 Go to [claude.ai](https://claude.ai) → Settings → Connectors → Add Custom Connector:
-- URL: `https://mcp.scalereach.ai/mcp`
-- Header: `Authorization: Bearer sr_live_your_key_here`
+- Name: `ScaleReach`
+- URL: `https://mcp.scalereach.ai/mcp/sr_live_your_key_here`
+- Leave OAuth fields empty → Click Add
 
 No terminal, no Node.js, no config files.
 
