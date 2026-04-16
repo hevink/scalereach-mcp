@@ -11,13 +11,12 @@ import { apiCall } from "../api-client.js";
 export function submitYouTubeVideoTool(server: McpServer) {
   server.tool(
     "submit_youtube_video",
-    `Submit a YouTube video URL for AI-powered clipping. Only ask the user these 3 things:
+    `Submit a YouTube video URL for AI-powered clipping. Only ask the user these 2 things:
 
-1. **Genre** — What type of content? (Auto, Podcast, Gaming, Education, Entertainment). Default: Auto
-2. **Aspect ratio** — Where will they post? 9:16 for TikTok/Reels/Shorts, 16:9 for YouTube, 1:1 for Instagram. Default: 9:16
-3. **Caption style** — Which template? Options: classic, rainbow, hormozi, mrbeast-pro, garyvee, tiktok-native, neon-pop, cinematic, electric-blue, sunset-fire, ice-cold, coral-pop, midnight-purple, toxic-green, georgia-elegance, basker, billy, simple. Default: classic
+1. **Caption style** — Which template? Options: classic, rainbow, hormozi, mrbeast-pro, garyvee, tiktok-native, neon-pop, cinematic, electric-blue, sunset-fire, ice-cold, coral-pop, midnight-purple, toxic-green, georgia-elegance, basker, billy, simple. Default: classic
+2. **Custom prompt** — Any specific moments or topics to focus on? E.g. "find the funniest parts", "focus on business advice", "extract cooking tips"
 
-Do NOT ask about clip duration, timeframe, language, captions enabled, or smart crop — use the defaults. Only ask about custom prompt if the user mentions specific topics they want.`,
+Do NOT ask about genre, aspect ratio, clip duration, timeframe, language, captions, or smart crop — use the defaults for all of these.`,
     {
       youtubeUrl: z
         .string()
