@@ -26,17 +26,25 @@ Claude: → calls ScaleReach API → video processed → clips ready
 
 Go to [ScaleReach Dashboard](https://app.scalereach.ai) → Settings → API Keys → Create Key
 
-### 2. One-command install
+### 2a. Claude.ai (no install needed)
+
+Go to [claude.ai](https://claude.ai) → Settings → Connectors → Add:
+- URL: `https://mcp.scalereach.ai/mcp`
+- Header: `Authorization: Bearer sr_live_your_key_here`
+
+No terminal, no Node.js, no config files.
+
+### 2b. Desktop apps (one command)
 
 ```bash
 npx scalereach-mcp setup sr_live_your_key_here
 ```
 
-That's it. This auto-detects Claude Desktop, Cursor, Windsurf, and Kiro — and configures all of them. Restart your AI app and start chatting.
+Auto-detects Claude Desktop, Cursor, Windsurf, and Kiro — configures all of them. Restart your AI app.
 
 To remove: `npx scalereach-mcp uninstall`
 
-### Manual setup (if you prefer)
+### 2c. Manual config
 
 Add to your AI app's MCP config:
 

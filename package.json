@@ -1,6 +1,6 @@
 {
   "name": "scalereach-mcp",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "MCP server for ScaleReach AI video clipping — lets Claude clip YouTube videos via natural conversation",
   "type": "module",
   "main": "dist/index.js",
