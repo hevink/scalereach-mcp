@@ -11,10 +11,11 @@ import { apiCall, getWorkspaceId, buildDashboardUrl, getWorkspaceSlug, getDashbo
 export function submitYouTubeVideoTool(server: McpServer) {
   server.tool(
     "submit_youtube_video",
-    `Submit a YouTube video URL for AI-powered clipping. Only ask the user these 2 things:
+    `Submit a YouTube video URL for AI-powered clipping. Only ask the user these 3 things:
 
 1. **Caption style** — Which template? Options: classic, rainbow, hormozi, mrbeast-pro, garyvee, tiktok-native, neon-pop, cinematic, electric-blue, sunset-fire, ice-cold, coral-pop, midnight-purple, toxic-green, georgia-elegance, basker, billy, simple. Default: classic
 2. **Custom prompt** — Any specific moments or topics to focus on? E.g. "find the funniest parts", "focus on business advice", "extract cooking tips"
+3. **AI Thumbnails** — Want AI-generated eye-catching thumbnails for each clip? (Pro and Agency plans only). Default: off
 
 Do NOT ask about genre, aspect ratio, clip duration, timeframe, language, captions, or smart crop — use the defaults for all of these.`,
     {
@@ -136,6 +137,15 @@ Do NOT ask about genre, aspect ratio, clip duration, timeframe, language, captio
         .optional()
         .default(false)
         .describe("Add an AI-generated hook title overlay in the first 3 seconds of each clip."),
+      enableAiThumbnail: z
+        .boolean()
+        .optional()
+        .default(false)
+        .describe(
+          "Enable AI-generated thumbnails for each clip. " +
+          "Uses Gemini to create eye-catching, graphic-heavy thumbnails. " +
+          "Available on Pro and Agency plans only."
+        ),
     },
     async (params) => {
       const { youtubeUrl, projectId, ...config } = params;
